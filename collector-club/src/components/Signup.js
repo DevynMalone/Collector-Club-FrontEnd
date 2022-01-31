@@ -9,23 +9,31 @@ class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      username: "",
       email: "",
+      profilePic: "",
       password: "",
       confirmPassword: "",
+      about: "",
       redirect: false,
     };
   }
 
-  handleName(e) {
+  handleUsername(e) {
     this.setState({
-      name: e.target.value,
+      username: e.target.value,
     });
   }
 
   handleEmail(e) {
     this.setState({
       email: e.target.value,
+    });
+  }
+
+  handleProfilePic(e) {
+    this.setState({
+      profilePic: e.target.value,
     });
   }
 
@@ -41,15 +49,23 @@ class Signup extends Component {
     });
   }
 
+  handleAbout(e) {
+    this.setState({
+      about: e.target.value,
+    });
+  }
+
   handleSubmit = (e) => {
     e.preventDefault(); // at the beginning of a submit function
     // make sure password and confirm password are equal
     // password length >= 8 characters
     if (this.state.password === this.state.confirmPassword && this.state.password.length >= 8) {
       const newUser = {
-        name: this.state.name,
+        username: this.state.username,
         email: this.state.email,
         password: this.state.password,
+        profilePic: this.state.profilePic,
+        about: this.state.about
       };
       axios
         .post(`${REACT_APP_SERVER_URL}/users/signup`, newUser) //connects to API to post
@@ -65,6 +81,9 @@ class Signup extends Component {
       alert("Password needs to be at least 8 characters. Please try again.");
     }
   };
+
+
+
   
   render() {
     if (this.state.redirect) return <Redirect to="/login" />; // You can have them redirected to profile (your choice)
@@ -76,20 +95,20 @@ class Signup extends Component {
             <div className="column is-8 is-offset-2 register">
               <div className="columns">
                 <div className="column left">
-                  <h1 className="title is-1">Super Cool Website</h1>
+                  <h1 className="title is-1">Collector Club</h1>
                   <h2 className="subtitle colored is-4">
-                    Lorem ipsum dolor sit amet.
+                    Start Collecting Today!
                   </h2>
-                  <p>
+                  {/* <p>
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                     Corporis ex deleniti aliquam tempora libero excepturi vero
                     soluta odio optio sed.
-                  </p>
+                  </p> */}
                 </div>
                 <div className="column right has-text-centered">
                   <h1 className="title is-4">Sign up today</h1>
                   <p className="description">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit
+                    *All Fields Required*
                   </p>
                   <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className="field">
@@ -97,10 +116,10 @@ class Signup extends Component {
                         <input
                           className="input is-medium"
                           type="text"
-                          placeholder="Name"
-                          name="name"
-                          value={this.state.name}
-                          onChange={this.handleName.bind(this)}
+                          placeholder="Username"
+                          name="username"
+                          value={this.state.username}
+                          onChange={this.handleUsername.bind(this)}
                           required
                         />
                       </div>
@@ -115,6 +134,34 @@ class Signup extends Component {
                           name="email"
                           value={this.state.email}
                           onChange={this.handleEmail.bind(this)}
+                          required
+                          />
+                      </div>
+                    </div>
+
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input is-medium"
+                          type="profilePic"
+                          placeholder="Profile Pic"
+                          name="profilePic"
+                          value={this.state.profilePic}
+                          onChange={this.handleProfilePic.bind(this)}
+                          required
+                          />
+                      </div>
+                    </div>
+
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input is-medium"
+                          type="about"
+                          placeholder="About"
+                          name="about"
+                          value={this.state.about}
+                          onChange={this.handleAbout.bind(this)}
                           required
                           />
                       </div>
@@ -153,13 +200,13 @@ class Signup extends Component {
                     </button>
                     <br />
                     <small>
-                      <em>Lorem ipsum dolor sit amet consectetur.</em>
+                      {/* <em>Lorem ipsum dolor sit amet consectetur.</em> */}
                     </small>
                   </form>
                 </div>
               </div>
             </div>
-            <div className="column is-8 is-offset-2">
+            {/* <div className="column is-8 is-offset-2">
               <br />
               <nav className="level">
                 <div className="level-left">
@@ -194,7 +241,7 @@ class Signup extends Component {
                   </small>
                 </div>
               </nav>
-            </div>
+            </div> */}
           </div>
         </section>
       </>
