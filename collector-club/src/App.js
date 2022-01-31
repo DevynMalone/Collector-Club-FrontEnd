@@ -15,6 +15,9 @@ import Login from './components/Login';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
 import Welcome from './components/Welcome';
+import CreateCollection from './components/CreateCollection';
+import CollectionContainer from './components/ViewCollections';
+import CollectorContainer from './components/ViewCollectors';
 
 const PrivateRoute = ({ component: Component, ...rest}) => {
   let token = localStorage.getItem('jwtToken');
@@ -71,9 +74,12 @@ function App() {
           <PrivateRoute path="/profile" component={Profile} user={currentUser} handleLogout={handleLogout} />
           <Route exact path="/" component={Welcome} />
           <Route path="/about" component={About} />
+          <PrivateRoute path="/add-collection" component={CreateCollection} user={currentUser} handleLogout={handleLogout} />
+          <Route path='/view-collections' component={CollectionContainer} />
+          <Route path='/view-collectors' component={CollectorContainer} />
         </Switch>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
